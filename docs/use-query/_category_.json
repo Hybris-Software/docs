@@ -1,0 +1,8 @@
+{
+  "label": "useQuery",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "This hook can be used to perform queries to an endpoint. Allows easy management of operations and query status."
+  }
+}
