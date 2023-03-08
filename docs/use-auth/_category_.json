@@ -1,0 +1,8 @@
+{
+  "label": "Use Auth",
+  "position": 5,
+  "link": {
+    "type": "generated-index",
+    "description": "Hook used to handle authentication in react applications. With useAuth you can easily handle the page's permissions and the user's authentication. This hook use seQuery hook to handle the api calls so it requires an Axios client. useQuery library already provides the generateApiClient function which returns a client with a variable base url and an interceptor to send an authentication header, so if you use that library in your project you can use generateApiClient function to create the Axios client. You may also create an axios client by your own. See useQuery documentation for more information about generateApiClient."
+  }
+}

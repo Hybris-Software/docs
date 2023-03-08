@@ -1,0 +1,8 @@
+{
+  "label": "Use Form",
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "description": "This hook is useful for managing forms: input validation, formatting and saving values. It works with any input but it is recommended to use the <InputField /> present in our UIKit"
+  }
+}
