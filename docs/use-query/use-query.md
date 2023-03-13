@@ -12,7 +12,11 @@ It requires an Axios client. This library already provides the `generateApiClien
 
 ## 2 - Installation
 
-Install the library with `npm install @hybris-software/use-query`.
+**Install the library with**
+
+```jsx
+npm install @hybris-software/use-query
+```
 
 At the upper level of the application you should also insert the `ApiProvider` component which requires an `apiClient` prop. It should be an Axios client which you can create by your own or use `generateApiClient` to generate one.
 
@@ -54,7 +58,7 @@ This function returns an Axios client with the possibility to set a `baseUrl`, a
 
 This is what `generateApiClient` generates, you can use it as a base to create your own api client.
 
-```javascript
+```jsx
 const apiClient = axios.create({
   baseURL: baseUrl,
   timeout: 5000,
