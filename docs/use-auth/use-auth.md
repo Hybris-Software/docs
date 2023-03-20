@@ -6,13 +6,17 @@ sidebar_position: 5
 
 ## Introduction
 
-Hook used to handle authentication in react applications. With useAuth you can easily handle the page's permissions and the user's authentication. This hook use `seQuery` hook to handle the api calls so it requires an Axios client.
+Hook used to handle authentication in react applications. With useAuth you can easily handle the page's permissions and the user's authentication. This hook use `useQuery` hook to handle the api calls so it requires an Axios client.
 `useQuery` library already provides the `generateApiClient` function which returns a client with a variable base url and an interceptor to send an authentication header, so if you use that library in your project you can use `generateApiClient` function to create the Axios client. You may also create an axios client by your own.
 See `useQuery` [documentation](https://www.npmjs.com/package/@hybris-software/use-query) for more information about `generateApiClient`.
 
 ## Installation
 
-Install the library with `npm install @hybris-software/use-auth`.
+Install the library with
+
+```jsx
+npm install @hybris-software/use-auth
+```
 
 At the upper level of the application you should insert the `AuthProvider` with an api client and authUrl as in the example below:
 
@@ -25,8 +29,6 @@ const apiClient = generateApiClient({
   authorizationHeader = "Authorization",
   authorizationPrefix = "Bearer"
 })
-
-
 // Or build your own apiClient whatever you want
 
 const authUrl = "https://my.api.com/api/v1/auth";

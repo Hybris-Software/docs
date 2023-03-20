@@ -11,11 +11,19 @@ It works with any input but it is recommended to use the `<InputField />` presen
 
 The input component should receive the required props using the `getInputProps` function returned by the hook. Those props are:
 
-- value: the current input value
-- setValue(value): set the input value, to be used in `onInput`
-- isValid: boolean, true if valid, false if there is an error, null if error should not be shown
-- errorDetails: error informations returned by the validator. Usually a string but may be an object, it depends on the validator output (see below)
-- setShowErrors(): to be called to manually trigger error show (usually in `onBlur`)
+<!-- Put this inside table -->
+
+## Props:
+
+| **Prop**          | **Type**         | **Default** | **Description**                                                                                                                     |
+| ----------------- | ---------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| **value**         | string           | ""          | the current input value                                                                                                             |
+| **setValue**      | function         | () => {}    | set the input value, to be used in `onInput`                                                                                        |
+| **isValid**       | boolean          | true        | true if valid, false if there is an error, null if error should not be shown                                                        |
+| **errorDetails**  | string or object | "" or {}    | error informations returned by the validator. Usually a string but may be an object, it depends on the validator output (see below) |
+| **setShowErrors** | function         | () => {}    | To be called to manually trigger error show (usually in `onBlur`)                                                                   |
+
+<!-- end of the table -->
 
 When the value changes, the following actions will be performed by the hook:
 

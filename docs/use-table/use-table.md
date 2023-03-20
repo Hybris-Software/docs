@@ -95,3 +95,114 @@ sidebar_position: 6
 | **copied**            | string   | "Copied"            |                 |
 
 ## Examples:
+
+```jsx
+import React, { useRef } from "react";
+
+// Libraries
+import Table from "@hybris-software/use-table";
+
+// Constants
+import endPoints from "~/Data/endPoints";
+
+// Styles
+import Style from "./Members.module.css";
+
+const Members = () => {
+  // Variables
+  const ref = useRef(null);
+  const allowedActions = [
+    {
+      label: "Accept",
+      value: "accept",
+      action: () => {
+        console.log("Accept");
+      },
+    },
+    {
+      label: "Reject",
+      value: "reject",
+      action: () => {
+        console.log("Reject");
+      },
+    },
+  ];
+
+  const columns = [
+    {
+      Header: "#",
+      field: "id",
+      searchable: false,
+      sortable: true,
+      orderField: "id",
+      accessor: (row) => {
+        return row.id;
+      },
+    },
+    {
+      Header: "MEMBER NAME",
+      field: "memberName",
+      searchable: false,
+      orderField: "member_name",
+      sortable: false,
+      accessor: (row) => {
+        return `${row.firstName} ${row.lastName}`;
+      },
+    },
+    {
+      Header: "USERNAME",
+      field: "userName",
+      searchable: false,
+      orderField: "user_name",
+      sortable: false,
+      accessor: (row) => {
+        return row.username;
+      },
+    },
+    {
+      Header: "DATE JOINED",
+      field: "dateJoined",
+      searchable: false,
+      orderField: "date_joined",
+      sortable: true,
+      accessor: (row) => {
+        return formatDate(row.dateJoined);
+      },
+    },
+  ];
+
+  // Functions
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
+  return (
+    <section>
+      <div className={Style.heading}>
+        <h2>Members</h2>
+      </div>
+      <Table
+        ref={ref}
+        allowedActions={allowedActions}
+        enableAllowedActions={false}
+        columns={columns}
+        endPoint={endPoints.referral.REFERRAL_LIST}
+        enableSearch={false}
+        enableSearchFieldSelect={false}
+        enableSelectableRows={false}
+        toPageInputBaseClassName={Style.toPageInput}
+        onSortChange={(sort) => {}}
+      />
+    </section>
+  );
+};
+
+export default Members;
+```
