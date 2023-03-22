@@ -4,13 +4,6 @@ sidebar_position: 3
 
 # useForm
 
-## Introduction
-
-This hook is useful for managing forms: input validation, formatting and saving values.
-It works with any input but it is recommended to use the `<InputField />` present in our UIKit.
-
-The input component should receive the required props using the `getInputProps` function returned by the hook. Those props are:
-
 <!-- Put this inside table -->
 
 ## Props:
@@ -25,18 +18,6 @@ The input component should receive the required props using the `getInputProps` 
 
 <!-- end of the table -->
 
-When the value changes, the following actions will be performed by the hook:
-
-1. Pass the new value to the formatter and saves the output
-2. For every input, if the input has the `required` option, executes a function based on the input `nature`, for example `email` and `username` are required to be not empty while `checkbox` has to be true. If it does not pass the check, a generic error is set, otherwise continues.
-3. Validation is performed for every input: if it is set a `validator` for the input that function is executed, otherwise one is chosen based on the `nature`, if available
-
-Errors are not always shown; the behavior is decided in the input options:
-
-- Error/success will be always shown after a blur
-- If `errorOnEveryChange` is `true` the error/success will be shown while writing
-- If `checkSuccessOnEveryChange` is `true` the error/success will be shown after the first time the validation is successful
-
 ## How to use it
 
 To install execute:
@@ -45,13 +26,7 @@ To install execute:
 npm install @hybris-software/use-ful-form
 ```
 
-Then you can import useForm with `import useForm from "@hybris-software/use-ful-form"`
-
-The hook requires an object as argument. At the moment this object should contain just a key named `inputs`, its value is an object where the key identifies the single input and the content is described below.
-
 **_Parameter:_**
-
-The parameter is a dictionary where the keys are the identifiers of the fields and the value is a dictionary with the following parameters:
 
 | Parameter                 | Type                                         | Description                                                                                                                        |
 | ------------------------- | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
@@ -87,18 +62,6 @@ The parameter is a dictionary where the keys are the identifiers of the fields a
 
 ### Validation function
 
-The validation function receives two arguments:
-
-- `value` which is the value of the input being validated
-- `values` which is an object containing the values of all inputs
-
-The output should be a list with two items inside:
-
-- The first one is a validator which will set isValid for the input
-- The secount one will set the error details. Is suggested to insert a string but any data type will work
-
-Some prebuilt validators are available.
-
 ```jsx
 import {
   validateConfirmPassword,
@@ -111,10 +74,6 @@ import {
 ```
 
 ### Formatter
-
-A formatter is a function that receives the original value as input every time the input changes and should return a formatted value.
-
-Some prebuilt formatters are available.
 
 ```jsx
 import {
