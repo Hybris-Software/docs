@@ -59,3 +59,18 @@ sidebar_position: 1
 | **autoComplete**  | string   | "new-password" | specify what if any permission the user agent has to provide automated assistance in filling out form field values |
 | **maxLength**     | number   | null           | give a max length for the input                                                                                    |
 | **inputRef**      | Object   | null           | input reference                                                                                                    |
+
+## Example 1
+
+```jsx
+import { InputField } from "@hybris-software/ui-kit";
+
+<div className={Style.doubleForm}>
+  <InputField placeholder="First Name" className={Style.firstField} />
+
+  <InputField
+    style={{ background: " rgba(217, 217, 217, 0.4)" }}
+    placeholder="Last Name"
+  />
+</div>;
+```

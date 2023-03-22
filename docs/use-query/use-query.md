@@ -4,118 +4,41 @@ sidebar_position: 2
 
 # useQuery
 
-## 1 - Introduction
-
-This hook can be used to perform queries to an endpoint. Allows easy management of operations and query status.
-
-It requires an Axios client. This library already provides the `generateApiClient` function which returns a client with a variable base url and an interceptor to send an authentication header. You may also create an axios client by your own.
-
-## 2 - Installation
-
-**Install the library with**
+## Installation
 
 ```jsx
 npm install @hybris-software/use-query
 ```
 
-At the upper level of the application you should also insert the `ApiProvider` component which requires an `apiClient` prop. It should be an Axios client which you can create by your own or use `generateApiClient` to generate one.
+## generateApiClient
 
-Here is an example:
+### Parameters
 
-```javascript
-import { generateApiClient, ApiProvider } from "@hybris-software/use-query";
-...
-const apiClient = generateApiClient({
-  baseUrl: "https://my.api.com/api/v1",
-  authorizationHeader: "Authorization",
-  authorizationPrefix: "Bearer "
-})
-...
-root.render(
-  <React.StrictMode>
-    <ApiProvider apiClient={apiClient}>
-      <App />
-    </ApiProvider>
-  </React.StrictMode >
-);
-```
+| Parameter           | Type   | Default         | Description                                                                                             |
+| ------------------- | ------ | --------------- | ------------------------------------------------------------------------------------------------------- |
+| baseUrl             | string |                 | Axios base url                                                                                          |
+| timeout             | number | 5000            | Default timeout (milliseconds)                                                                          |
+| authorizationHeader | string | "Authorization" | Authorization header name                                                                               |
+| authorizationPrefix | string | "Bearer "       | The authorization header prefix, for example <br/> `Authorization: Bearer your_token_from_localstorage` |
+| localStorageKey     | string | "token"         | Local storage key that contains the authentication token                                                |
 
-## 3 - generateApiClient
+## generateJwtApiClient
 
-This function returns an Axios client with the possibility to set a `baseUrl`, and an authorization header. It gets the authorization token from `localStorage` or `sessionStorage` with the key `token`.
-
-### 3.1 - Parameters
-
-| Parameter           | Type   | Default         | Description                                                                                       |
-| ------------------- | ------ | --------------- | ------------------------------------------------------------------------------------------------- |
-| baseUrl             | string |                 | Axios base url                                                                                    |
-| timeout             | number | 5000            | Default timeout (milliseconds)                                                                    |
-| authorizationHeader | string | "Authorization" | Authorization header name                                                                         |
-| authorizationPrefix | string | "Bearer "       | The authorization header prefix, for example `Authorization: Bearer your_token_from_localstorage` |
-| localStorageKey     | string | "token"         | Local storage key that contains the authentication token                                          |
-
-### 3.2 - Our api client
-
-This is what `generateApiClient` generates, you can use it as a base to create your own api client.
-
-```jsx
-const apiClient = axios.create({
-  baseURL: baseUrl,
-  timeout: 5000,
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
-});
-
-apiClient.interceptors.request.use(
-  function (config) {
-    config.headers = config.headers || {};
-    const token =
-      localStorage.getItem("token") || sessionStorage.getItem("token");
-    if (token) {
-      config.headers[authorizationHeader] = `${authorizationPrefix}${token}`;
-    }
-    config.headers["Content-Type"] = "application/json";
-    config.headers["Accept"] = "application/json";
-    return config;
-  },
-  function (error) {
-    return Promise.reject(error);
-  }
-);
-
-apiClient.interceptors.response.use(
-  function (response) {
-    return response;
-  },
-  function (error) {
-    return Promise.reject(error);
-  }
-);
-```
-
-## 4 - generateJwtApiClient
-
-This function returns an Axios client with the possibility to set a `baseUrl`, and an authorization header. It gets the authorization token from `localStorage` or `sessionStorage` with the key `token`.
-
-### 4.1 - Parameters
+### Parameters
 
 | Parameter                   | Type     | Default         | Description                                                                                                                |
 | --------------------------- | -------- | --------------- | -------------------------------------------------------------------------------------------------------------------------- |
 | baseUrl                     | string   |                 | Axios base url                                                                                                             |
 | timeout                     | number   | 5000            | Default timeout (milliseconds)                                                                                             |
 | authorizationHeader         | string   | "Authorization" | Authorization header name                                                                                                  |
-| authorizationPrefix         | string   | "Bearer "       | The authorization header prefix, for example `Authorization: Bearer your_token_from_localstorage`                          |
+| authorizationPrefix         | string   | "Bearer "       | The authorization header prefix, for example <br/>`Authorization: Bearer your_token_from_localstorage`                     |
 | accessTokenLocalStorageKey  | string   | "accessToken"   | Local storage key that contains the access token                                                                           |
 | refreshTokenLocalStorageKey | string   | "refreshToken"  | Local storage key that contains the refresh token                                                                          |
 | refreshTokenFunction        | function |                 | An asyncronous function that receives the old access token and refresh token and returns [newAccessToken, newRefreshToken] |
 
-## 5 - useQuery
+## useQuery
 
-This hook performs only one query, if you have to perform multiple queries in parallel you can call multiple times `useQuery` or use `useMultipleQueries` as described below.
-
-### 5.1 - Parameters
+### Parameters
 
 | Parameter          | Type                 | Default     | Description                                                                                                                                                                                                                                                                                |
 | ------------------ | -------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -127,7 +50,7 @@ This hook performs only one query, if you have to perform multiple queries in pa
 | onError            | `(error) => void`    | `() => { }` | Function executed after an unsuccessful query. If `onUnauthorized` is not defined, it also handles 401 status code                                                                                                                                                                         |
 | clientOptions      | object               | `{}`        | Extra Axios options, ex. `{timeout: 1000}`                                                                                                                                                                                                                                                 |
 
-### 5.2 - Returned parameters
+### Returned parameters
 
 | Parameter    | Type                  | Description                                                                                                                                    |
 | ------------ | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -138,11 +61,9 @@ This hook performs only one query, if you have to perform multiple queries in pa
 | error        | any                   | The generated error if the query finished unsuccessfully, `undefined` otherwise. If it got a response, it can be accessed via `error.response` |
 | executeQuery | `(data?: {}) => void` | Trigger the query with optional body as parameter                                                                                              |
 
-## 6 - useMultipleQueries
+## useMultipleQueries
 
-This hooks allows to perform multiple queries in parallel with a syntax similar to that of `useQuery`.
-
-### 6.1 - Parameters
+### Parameters
 
 | Parameter          | Type                 | Default     | Description                                                                                                                                                                                                                                                                                          |
 | ------------------ | -------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -157,7 +78,7 @@ This hooks allows to perform multiple queries in parallel with a syntax similar 
 | onEnd              | `(response) => void` | `() => { }` | Function executed after after all the queries finished                                                                                                                                                                                                                                               |
 | clientOptions      | object               | `{}`        | Extra Axios options, ex. `{timeout: 1000}`                                                                                                                                                                                                                                                           |
 
-### 6.2 - Returned parameters
+### Returned parameters
 
 | Parameter      | Type                  | Description                                                                                                                                                 |
 | -------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -168,9 +89,9 @@ This hooks allows to perform multiple queries in parallel with a syntax similar 
 | isLoading      | boolean               | `true` if any calls are in progress, `false` otherwise, even if it has not yet started                                                                      |
 | queries        | object                | Contains all the information of each query. The key is the name of the query, the value is an object with the following queries: `status, error, response`  |
 
-## 7 - Examples
+## Examples
 
-### 7.1 - Example 1
+### Example 1
 
 ```javascript
 const { isLoading, executeQuery } = useQuery({
@@ -195,7 +116,7 @@ else
   return <Form submitForm={submitForm} />
 ```
 
-### 7.2 - Example 2
+### Example 2
 
 ```javascript
 const { isLoading, isSuccess, data, error } = useQuery({
@@ -209,7 +130,7 @@ else if (isSuccess) return <UserInfo data={data} />;
 else return <Error error={error} />;
 ```
 
-### 6.3 - Example with useMultipleQueries
+### Example with useMultipleQueries
 
 ```javascript
 const { queries } = useMultipleQueries({
@@ -243,7 +164,7 @@ const { queries } = useMultipleQueries({
 });
 ```
 
-### 7.3 - Example with JWT
+### Example with JWT
 
 ```javascript
 import axios from "axios";
