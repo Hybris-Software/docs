@@ -4,12 +4,6 @@ sidebar_position: 5
 
 # useAuth
 
-## Introduction
-
-Hook used to handle authentication in react applications. With useAuth you can easily handle the page's permissions and the user's authentication. This hook use `useQuery` hook to handle the api calls so it requires an Axios client.
-`useQuery` library already provides the `generateApiClient` function which returns a client with a variable base url and an interceptor to send an authentication header, so if you use that library in your project you can use `generateApiClient` function to create the Axios client. You may also create an axios client by your own.
-See `useQuery` [documentation](https://www.npmjs.com/package/@hybris-software/use-query) for more information about `generateApiClient`.
-
 ## Installation
 
 Install the library with
@@ -17,8 +11,6 @@ Install the library with
 ```jsx
 npm install @hybris-software/use-auth
 ```
-
-At the upper level of the application you should insert the `AuthProvider` with an api client and authUrl as in the example below:
 
 ```javascript
 import { generateApiClient } from "@hybris-software/use-query";
@@ -69,8 +61,6 @@ root.render(
 
 ## AuthRoute
 
-`<AuthRoute>` is a component that use useAuth hook to check if the user il logged or not. Setting the `forLoggedUser` parameter you can decide if the route is accessible only for logged users or only for not logged users. If the user is not logged and the route is accessible only for logged users, the user is redirected to the login page. If the user is logged and the route is accessible only for not logged users, the user is redirected to the home page. For example: the login page is accessible only for not logged users, so if the user is logged and try to access the login page, he is redirected to the home page. Insted if the user is not logged and try to access the home page, he is redirected to the login page.
-
 ### Parameters
 
 | Parameter          | Type     | Default | Description                                                                                                                                                                                |
@@ -84,8 +74,6 @@ root.render(
 ## Examples
 
 ### Example 1: useAuth
-
-If you set the parameter executeImmediately as `false` you can trigger the query with the `executeQuery` function. This is useful if you want to execute the query only when the user clicks on a button.
 
 ```javascript
 import { useAuth } from "@hybris-software/use-auth";
@@ -120,8 +108,6 @@ const Login = () => {
 ```
 
 ### Example 2: useAuth
-
-If you set the parameter executeImmediately as `true` the query will be executed when the component is created. This is useful if you want to check if the user is logged when the page is loaded.
 
 ```javascript
 import React, { useEffect } from "react";

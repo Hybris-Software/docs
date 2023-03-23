@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Hybris Intro 😎
+# Hybris Software 😎
 
 Let's discover **Hybris in less than 5 minutes**.
 
